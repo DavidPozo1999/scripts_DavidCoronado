@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--Realizar un script 04-usuario.html que solicite una dirección de correo 
+        electrónico y la trocee para 
+        quedarse solo con el nombre de usuario 
+        (lo que va antes de la @) para mostrarlo al usuario. 
+        Elimina los posibles espacios que pueda tener con trim.-->
+
+        <script>
+            //pedimos el email y eliminamos el espacio
+            let email=prompt("Introduce un email: ");
+            let resultEmail=email.trim();
+            //buscamos la posicion del arroba
+            const arroba=resultEmail.indexOf("@");
+            //comprobacion de si hay arroba
+            if(arroba != -1){
+                let resultado=resultEmail.slice(0,arroba);
+                console.log(resultado);
+            }else{
+                console.log("es un email incorrecto");
+            }
+
+            
+        </script>
+</body>
+</html>

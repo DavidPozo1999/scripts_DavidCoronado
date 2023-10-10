@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--Realizar un script en 01-espar.html que solicite un número y nos diga si ese número es 
+        par o impar por consola.-->
+
+    <script>
+        //Elegimos un número
+        const entrada=prompt("Elige un número: ");
+        
+        //comprobamos si es un numero o no
+        if(!isNaN(entrada)){
+            //comprobacion de si es par o impar
+            if(entrada%2===0){
+                console.log("par");
+            }else{
+                console.log("impar");
+            }
+        }else{
+            console.log("NO has puesto un número");
+        }
+    </script>
+</body>
+</html>

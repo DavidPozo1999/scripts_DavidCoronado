@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--Crea un script 03-carta.html que cree una carta personalizada sustituyendo los datos de las variables que solicite al usuario y luego lo muestre 
+        en el documento. Ha de usar la función trim en cada dato que lea para eliminar espacios-->
+        <script>
+            //Nombre
+            const nombre=prompt("Introduce tu nombre");
+            const resultNombre=nombre.trim();
+
+            //Curso
+            const curso=prompt("Introduce el curso:");
+            const resultCurso=curso.trim();
+
+            //Localidad
+            const localidad=prompt("Introduce tu localidad");
+            const resultLocalidad=localidad.trim();
+
+            //FechaInicio
+            const fechaInicio=prompt("Introduce fecha de inicio");
+            const resultFechInicio=fechaInicio.trim();
+
+            //FechaFin
+            const fechaFin=prompt("Introduce fecha final");
+            const resultFechaFin=fechaFin.trim();
+
+            console.log("Estimado "+resultNombre+", Bienvenido al curso de "+resultCurso+" que se celebrará en la localidad de "+resultLocalidad+" entre las fechas "+ resultFechInicio+" y "+resultFechaFin+". Espero que el curso se desarrolle según sus expectativas. Estaremos encantados de atenderle Atentamente, La dirección.")
+        </script>
+</body>
+</html>

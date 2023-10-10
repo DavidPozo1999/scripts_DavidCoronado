@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!--Crea un script en 02-hastamayoredad.html que nos vaya solicitando una edad hasta que 
+        introduzcamos una edad mayor o igual a 18.
+         Cuando haya ingresado un mayor de edad se mostrará el contenido con un console.log-->
+
+         <script>
+            //Creamos un bucle do while
+            do{
+                //Pedimos el numero
+                var numero=prompt("introduce un numero mayor o igual a 18");
+                
+                //comprobamos si es un numero
+                if(isNaN(numero)){
+                    numero=1;
+                    console.log("Escribe un numero");
+                }else{
+                    //comprobacion de si es mayor o menor
+                    if(numero<18){
+                        console.log("valor erroneo");
+                    }
+                }
+            }while(numero<18)
+
+            console.log("edad correcta:"+numero);
+            
+         </script>
+</body>
+</html>
