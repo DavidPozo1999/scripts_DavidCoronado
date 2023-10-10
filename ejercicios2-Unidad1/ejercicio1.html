@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const numeroAleatorio=num=>{
+            const numAleatorio=Math.floor(Math.random()*num)+1;
+            return numAleatorio;
+        }
+        console.log(numeroAleatorio(5));
+
+        //Ejercicio 2
+        let premiosLoteria=new Array();
+        for(i=1; i<=10; i++){
+            premiosLoteria.push(numeroAleatorio(20));
+        }
+        premiosLoteria.forEach(premio=>{
+            alert(premio);
+        })
+    </script>
+    
+</body>
+</html>

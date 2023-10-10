@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        class Coche{
+            constructor(marca, modelo, precio, anoMatricula, url){
+                this._marca=marca;
+                this._modelo=modelo;
+                this._precio=precio;
+                this._anoMatricula=anoMatricula;
+                this._url=url;
+            }
+            get marca(){
+                return this._marca;
+            }
+            get modelo(){
+                return this._modelo;
+            }
+            get precio(){
+                return this._precio;
+            }
+            get anoMatricula(){
+                return this._anoMatricula;
+            }
+        }
+
+        const coche1= new Coche("opel","astra",20000,2017,"./imagenes/coche1.jpg");
+        const coche2= new Coche("opel","corsa",15000,2023,"./imagenes/coche2.jpg");
+        const coche3= new Coche("seat","leon",25000,2020,"./imagenes/coche3.jpg");
+        const coche4= new Coche("seat","ibiza",12000,2012,"./imagenes/coche4.jpg");
+        const coche5= new Coche("golf","r32",1000,2004,"./imagenes/coche5.jpg");
+
+        const arrayCoches=new Array(coche1,coche2,coche3,coche4,coche5);
+
+        arrayCoches.forEach(coche=>{
+            console.log("marca "+ coche.marca+ " modelo "+coche.modelo+" precio "+coche.precio+" matricula "+coche.anoMatricula+" imagen "+ coche.url);
+        })
+
+
+        //ejercicio 4
+
+        function pintarCoches(arrayCoches){
+            let body=document.querySelector("body");
+            let table=document.createElement("table");
+            let encabezado=document.createElement("thead");
+            let fila=document.createElement("tr");
+            let columna1=document.createElement("th");
+            let columna2=document.createElement("th");
+            let columna3=document.createElement("th");
+            let columna4=document.createElement("th");
+            let columna5=document.createElement("th");
+
+
+            columna1.textContent="Marca";
+            columna2.textContent="Modelo";
+            columna3.textContent="Precio";
+            columna4.textContent="Matricula";
+            columna5.textContent="Imagen"
+            fila.appendChild(columna1);
+            fila.appendChild(columna2);
+            fila.appendChild(columna3);
+            fila.appendChild(columna4);
+            fila.appendChild(columna5);
+            table.appendChild(fila);
+            
+
+            arrayCoches.forEach(coche=>{
+                let imagen=document.createElement("img");
+                imagen.src=coche.url;
+                let filaCuerpo=document.createElement("tr");
+                let columnaCuerpo1=document.createElement("td");
+                let columnaCuerpo2=document.createElement("td");
+                let columnaCuerpo3=document.createElement("td");
+                let columnaCuerpo4=document.createElement("td");
+                let columnaCuerpo5=document.createElement("td");
+                columnaCuerpo1.textContent=coche.marca;
+                columnaCuerpo2.textContent=coche.modelo;
+                columnaCuerpo3.textContent=coche.precio;
+                columnaCuerpo4.textContent=coche.anoMatricula;
+                columnaCuerpo5.appendChild(imagen);
+                filaCuerpo.appendChild(columnaCuerpo1);
+                filaCuerpo.appendChild(columnaCuerpo2);
+                filaCuerpo.appendChild(columnaCuerpo3);
+                filaCuerpo.appendChild(columnaCuerpo4);
+                filaCuerpo.appendChild(columnaCuerpo5);
+                table.appendChild(filaCuerpo);
+            })
+            body.appendChild(table);
+        }
+        pintarCoches(arrayCoches);
+    </script>
+    
+</body>
+</html>
