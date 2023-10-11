@@ -212,7 +212,7 @@ filasHeader.forEach(columna=>{
     columna.style.textAlign="Center";
 })
 filas.forEach(fila=>{
-    columna.style.border="1px solid black";
-    columna.style.textAlign="Center";
+    fila.style.border="1px solid black";
+    fila.style.textAlign="Center";
 
 })
