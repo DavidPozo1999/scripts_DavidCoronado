@@ -80,3 +80,42 @@ if(typeof(persona._nombre)!="string"){
 }else if(typeof(persona._carnetConducir)!="boolean"){
     alert("carnet incorrecto");
 }
+
+
+//EJercicio 2
+/*
+Ejercicio 2.- Crear un array con objetos persona , ordénalo y muéstralos en una pagina web
+*/
+
+//Creamos los objetos de la clase persona
+const persona2=new Persona("Pedro","Diezma","Los Yébenes",25,"ESO",true);
+const persona3=new Persona("Danito","Senpai","Sonseca",25,"Outer wilds",true);
+const persona4=new Persona("Tomas","Towser","Sonseca",24,"Telecomunicaciones",false);
+const persona5=new Persona("Alex","Barba-Abruda","Rumania",30,"DAM",true);
+
+//creamos el array y añadimos todos los objetos
+const arrayPersonas=new Array(persona, persona2, persona3, persona4, persona5);
+
+//Ordenamos el array por la edad.
+arrayPersonas.sort((a,b)=>{
+    return a.edad-b.edad;
+});
+//Recogemos el contenedor del body para mostrar una lista de los objetos
+const listContainer=document.querySelector(".list-container");
+
+//Creamos la etiqueta ul
+const ul=document.createElement("ul");
+
+//Recorremos el array
+arrayPersonas.forEach(persona=>{
+    //Creamos etiqueta li, insertamos el texto y la anidamos al ul
+    const li=document.createElement("li");
+    li.textContent="Nombre:"+persona._nombre+ " Apellido:"+persona._apellido+" Población: "+persona._poblacion+" edad:"+persona.edad+" estudio:"+persona.estudio+ " carnet:" +persona._carnetConducir;
+    ul.appendChild(li);
+})
+listContainer.appendChild(ul);
+
+/* Ejercicio 3.- Crea un map donde la clave se el dni y el valor sea un objeto persona. Ordena el 
+map por orden de clave. Intenta ordenar este por edad. Partiendo de una página web vacía, 
+crea una tabla, donde cada fila se corresponde con un alumno, y las columnas los 
+correspondientes atributos*/
