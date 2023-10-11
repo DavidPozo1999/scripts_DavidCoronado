@@ -119,3 +119,100 @@ listContainer.appendChild(ul);
 map por orden de clave. Intenta ordenar este por edad. Partiendo de una página web vacía, 
 crea una tabla, donde cada fila se corresponde con un alumno, y las columnas los 
 correspondientes atributos*/
+
+const mapaPersonas=new Map();
+mapaPersonas.set("03939995A",persona);
+mapaPersonas.set("37631627Q",persona2);
+mapaPersonas.set("10416300Z",persona3);
+mapaPersonas.set("72241671M",persona4);
+mapaPersonas.set("29838233B",persona5);
+
+//Creamos una matriz para guardar todas las claves y ordenarlas
+const clavesOrdenadas=Array.from(mapaPersonas.keys());
+clavesOrdenadas.sort();
+
+//Creamos un nuevo mapa con las claves ordenadas
+const mapaPersonasOrdenado=new Map();
+
+clavesOrdenadas.forEach(clave=>{
+    mapaPersonasOrdenado.set(clave,mapaPersonas.get(clave));
+})
+
+
+//Creamos la estructura completa de la tabla
+const tableContainer=document.querySelector(".table-container")
+const table=document.createElement("table");
+const thead=document.createElement("thead");
+const filaHeader=document.createElement("tr");
+const ColumnaDni=document.createElement("th");
+const ColumnaNombre=document.createElement("th");
+const ColumnaApellido=document.createElement("th");
+const ColumnaPoblacion=document.createElement("th");
+const ColumnaEdad=document.createElement("th");
+const ColumnaEstudio=document.createElement("th");
+const columnaCarnet=document.createElement("th");
+ColumnaDni.textContent="DNI";
+ColumnaNombre.textContent="NOMBRE";
+ColumnaApellido.textContent="APELLIDO";
+ColumnaPoblacion.textContent="POBLACION";
+ColumnaEdad.textContent="EDAD";
+ColumnaEstudio.textContent="ESTUDIO";
+columnaCarnet.textContent="CARNET";
+filaHeader.appendChild(ColumnaDni);
+filaHeader.appendChild(ColumnaNombre);
+filaHeader.appendChild(ColumnaApellido);
+filaHeader.appendChild(ColumnaPoblacion);
+filaHeader.appendChild(ColumnaEdad);
+filaHeader.appendChild(ColumnaEstudio);
+filaHeader.appendChild(columnaCarnet);
+thead.appendChild(filaHeader);
+table.appendChild(thead);
+
+
+const tbody=document.createElement("tbody");
+
+//Recorremos el mapa y vamos añadiendo el contenido a filas que anidaremos a la tabla
+mapaPersonasOrdenado.forEach((persona, clave)=>{
+    const filaCuerpo=document.createElement("tr");
+    const ColumnaDni=document.createElement("td");
+    const ColumnaNombre=document.createElement("td");
+    const ColumnaApellido=document.createElement("td");
+    const ColumnaPoblacion=document.createElement("td");
+    const ColumnaEdad=document.createElement("td");
+    const ColumnaEstudio=document.createElement("td");
+    const columnaCarnet=document.createElement("td");
+    ColumnaDni.textContent=clave;
+    ColumnaNombre.textContent=persona._nombre;
+    ColumnaApellido.textContent=persona._apellido;
+    ColumnaPoblacion.textContent=persona._poblacion;
+    ColumnaEdad.textContent=persona.edad;
+    ColumnaEstudio.textContent=persona.estudio;
+    columnaCarnet.textContent=persona._carnetConducir;
+    filaCuerpo.appendChild(ColumnaDni);
+    filaCuerpo.appendChild(ColumnaNombre);
+    filaCuerpo.appendChild(ColumnaApellido);
+    filaCuerpo.appendChild(ColumnaPoblacion);
+    filaCuerpo.appendChild(ColumnaEdad);
+    filaCuerpo.appendChild(ColumnaEstudio);
+    filaCuerpo.appendChild(columnaCarnet);
+    tbody.appendChild(filaCuerpo);
+})
+//Anidamos la tabla al html
+table.appendChild(tbody);
+tableContainer.appendChild(table);
+
+//Por ultimo recogemos todas las filas y columnas y les damos algo de estilo
+table.style.border="1px solid black";
+
+const filasHeader=document.querySelectorAll("th");
+const filas=document.querySelectorAll("td");
+
+filasHeader.forEach(columna=>{
+    columna.style.border="1px solid black";
+    columna.style.textAlign="Center";
+})
+filas.forEach(fila=>{
+    columna.style.border="1px solid black";
+    columna.style.textAlign="Center";
+
+})
