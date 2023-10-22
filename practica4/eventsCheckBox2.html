@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="#">
+        <div class="opcionCheck">
+            <label for="opcion1">opcion1</label>
+            <input type="checkbox" value="opcion1" name="opcion1" class="opcion" id="opcion1">
+        </div>
+        <div class="opcionCheck">
+            <label for="opcion2">opcion2</label>
+            <input type="checkbox" value="opcion2" name="opcion2" class="opcion" id="opcion2">
+        </div>
+        <div class="opcionCheck">
+            <label for="opcion3">opcion3</label>
+            <input type="checkbox" value="opcion3" name="opcion3" class="opcion" id="opcion3">
+        </div>
+        <div class="opcionCheck">
+            <label for="opcion4">opcion4</label>
+            <input type="checkbox" value="opcion4" name="opcion4" class="opcion" id="opcion4">
+        </div>
+    </form>
+
+    <script>
+        //Recogemos los input
+        const opcion1=document.querySelector("#opcion1");
+        const opcion2=document.querySelector("#opcion2");
+        const opcion3=document.querySelector("#opcion3");
+        const opcion4=document.querySelector("#opcion4");
+
+        //Creamos un array y añadimos los input
+        const arrayInputs=[opcion1,opcion2,opcion3,opcion4];
+
+        arrayInputs.forEach(input=>{
+            if(input.checked){
+                const id=input.id;
+                arrayInputs.forEach(input=>{
+                    if(id!=input.id){
+                        input.checked=false;
+                    }
+                })
+            }
+        })
+
+    </script>
+</body>
+</html>
