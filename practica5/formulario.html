@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="form-container">
+        <form action="" style="width: 70%; margin:0 auto;">
+            <div class="form-group">
+                <label for="nombre">NOMBRE</label>
+                <input type="text" class="nombre form-control" id="nombre">
+                <div class="invalid-feedback error-name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nick">NOMBRE USUARIO</label>
+                <input type="text" class="nick form-control" id="nick">
+                <div class="invalid-feedback error-nick">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="contraseña">CONTRASEÑA</label>
+                <input type="text" class="contraseña form-control" id="contraseña">
+                <div class="invalid-feedback error-password">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="cuenta">CUENTA BANCARIA</label>
+                <input type="text" class="cuenta form-control" id="cuenta">
+                <div class="invalid-feedback error-cuenta">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="tarjeta">TARJETA CREDITO</label>
+                <input type="text" class="tarjeta form-control" id="tarjeta">
+                <div class="invalid-feedback error-tarjeta">
+                </div>
+            </div>
+            <div class="form-check custom-control custom-checkbox">
+                <input type="checkbox" class="condicion form-check-input custom-control-input" id="condicion">
+                <label for="condicion" class="form-check-label">Aceptar condiciones</label>
+                <div class="invalid-feedback error-condicion">
+                </div>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="publicidad form-check-input" id="publicidad">
+                <label for="publicidad" class="form-check-label">Recibir emails de publicidad</label>
+                <p></p>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin: 0 auto;">Enviar</button>
+        </form>
+        
+    </div>
+</body>
+<script src="./formulario.js"></script>
+</html>
