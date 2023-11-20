@@ -47,3 +47,17 @@ header{
 .list-options li a:hover{
     color: var(--color-azul);
 }
+
+main{
+    width: 80%;
+    margin: 1rem auto;
+}
+
+.buttons-container{
+    width: max-content;
+    margin: 3rem auto;
+}
+button{
+    border: none;
+    padding: .5rem 3rem;
+}
