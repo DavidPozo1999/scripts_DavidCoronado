@@ -118,12 +118,33 @@ function pintaFicha(data){
     main.innerHTML="";
     //Creamos un contenedor y se lo añadimos al anterior contenedor
     const containerCreate=document.createElement("div");
-    containerCreate.classList.add("userCard-container");
+    containerCreate.classList.add("card-container");
     main.appendChild(containerCreate);
 
-    const container=document.querySelector("main .userCard-container");
+    const container=document.querySelector("main .card-container");
 
-    container.innerHTML=`<h1>${data.name}</h1>`
+    container.innerHTML=`<div class="card-container">
+    <div class="img-container">
+        <img src="./img/logo.avif" alt="">
+    </div>
+    <h3>${data.name}</h3>
+    <p class="company">${data.company.name}</p>
+    <div class="horizontal-line"></div>
+    <div class="dataUser">
+        <div class="data-group">
+            <h5>${data.address.street}</h5>
+            <p>calle</p>
+        </div>
+        <div class="data-group">
+            <h5>${data.address.city}</h5>
+            <p>Ciudad</p>
+        </div>
+        <div class="data-group">
+            <h5>${data.website}</h5>
+            <p>Website</p>
+        </div>
+    </div>
+</div>`
 
 }
 async function obtenerPosts(id){

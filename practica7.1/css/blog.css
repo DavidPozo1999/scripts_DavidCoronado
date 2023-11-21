@@ -61,3 +61,64 @@ button{
     border: none;
     padding: .5rem 3rem;
 }
+
+/*  Tarjeta de usuario*/
+
+.card-container{
+    width: 550px;
+    height: 400px;
+    background-color: var(--color-secundario-oscuro);
+    margin: 4rem auto;
+    position: relative;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 3px #888888;
+    transition: all .3s ease;
+    cursor: pointer;
+}
+.card-container:hover{
+    transform: translateY(-20px);
+}
+.card-container .img-container{
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background-color: #fff;
+    left: 50%;
+    top:-50px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+  
+
+}
+.card-container .img-container img{
+    width: 100%;
+
+}
+.card-container h3{
+    padding-top: 8rem;
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+}
+.card-container .company{
+    color: white;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.card-container .horizontal-line{
+    width: 80%;
+    background-color: white;
+    height: 1px;
+    margin: 2rem auto;
+}
+
+.dataUser{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+}
+.card-container .dataUser .data-group{
+    text-align: center;
+}
