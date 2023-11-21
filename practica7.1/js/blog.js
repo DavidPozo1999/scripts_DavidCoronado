@@ -149,6 +149,7 @@ async function obtenerPosts(id){
                 throw new Error(`Status: ${responseUser.status}`);
             }
 
+            //LLamada a la función para pintar los posts de un usuario en concreto
             const dataUser=await responseUser.json();
             console.log(dataUser.name)
             pintarPosts(dataPost, dataUser);
@@ -181,10 +182,8 @@ async function obtenerPosts(id){
                     }catch(error){
                         console.log(error);
                     }
-                }
-            for(let x=0; x<miArray.length; x++){
-                console.log(miArray[x].name);
             }
+            pintarTodosPosts(dataPost, miArray)
         }catch(error){
             console.log(error);
         }
@@ -211,5 +210,21 @@ function pintarPosts(dataPost, dataUser){
 }
 
 function pintarTodosPosts(dataPost, dataUser){
+    //Recogemos el contenedor pirncipal
+    const main=document.querySelector("main");
+    main.innerHTML="";
 
+    //Creamos una etiqueta contenedor y se la anidamos al main
+    const div=document.createElement("div");
+    div.classList.add("posts-container");
+    main.appendChild(div);
+
+    const container=document.querySelector("main .posts-container");
+
+    for(let x=0; x< dataPost.length; x++){
+        const positionUser=dataUser.findIndex( usuario=> usuario.id===dataPost[x].userId);
+        container.innerHTML+=`<h3>${dataPost[x].title}</h3>
+                                <a href="#" class="user" onclick="accedeUsers(${dataUser[positionUser].id})">${dataUser[positionUser].name}</a>
+                                <p>${dataPost[x].body}</p>`;
+    }
 }
