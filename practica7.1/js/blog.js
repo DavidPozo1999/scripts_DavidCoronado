@@ -121,6 +121,7 @@ function pintaFicha(data){
     containerCreate.classList.add("card-container");
     main.appendChild(containerCreate);
 
+    //Recogemos el elemento y le añadimos todo el codigo de la tarjeta
     const container=document.querySelector("main .card-container");
 
     container.innerHTML=`<div class="card-container">
@@ -148,6 +149,8 @@ function pintaFicha(data){
 
 }
 async function obtenerPosts(id, pagina){
+    //Si se le pasa el parametro id entonces hacemos la llamada para los posts de ese usuario.
+    //en caso contrario hacemos una llamada para todos los posts.
     if(id!=undefined){
         try{
             //enlace de la API
@@ -179,7 +182,6 @@ async function obtenerPosts(id, pagina){
             }else{
                 numberPage=1
             }
-            alert(typeof(numberPage));
             pintarPosts(dataPost, dataUser, numberPage);
         }catch(error){
             console.error(error);
@@ -228,21 +230,24 @@ function pintarPosts(dataPost, dataUser, pagina){
     //Contenedor principal
     const main=document.querySelector("main");
     main.innerHTML="";
-    //Creamos una etiqueta contenedor
+    //Creamos una etiqueta contenedor y se la anidamos al contenedor padre
     const div=document.createElement("div");
     div.classList.add("posts-container");
     main.appendChild(div);
     const container=document.querySelector("main .posts-container");
-    //Hacemos las variables para sacar de 5 en 5 los posts.
+    //Hacemos las variables para sacar de 5 en 5 los posts para la paginación.
     let ultimoElemento=pagina*5;
     let primerElemento=ultimoElemento-5;
     const postArray=dataPost.slice(primerElemento, ultimoElemento);
+
+    //Tambien sacamos la cantidad de paginas que tendremos para poder crear los botones necesarios.
+    const pageCount=dataPost.length/5;
     for(let x=primerElemento; x< ultimoElemento; x++){
         container.innerHTML+=`<h3>${postArray[x-primerElemento].title}</h3>
                                 <a href="#" class="user" onclick="accedeUsers(${dataUser.id})">${dataUser.name}</a>
                                 <p>${postArray[x-primerElemento].body}</p>`;
     }
-    pintarBotones(pagina, dataUser.id);
+    pintarBotones(pagina, dataUser.id, pageCount);
 }
 
 function pintarTodosPosts(dataPost, dataUser, pagina){
@@ -259,19 +264,21 @@ function pintarTodosPosts(dataPost, dataUser, pagina){
     let primerElemento=ultimoElemento-5;
     const postArray=dataPost.slice(primerElemento, ultimoElemento);
     const container=document.querySelector("main .posts-container");
-
+    
+    //Tambien sacamos la cantidad de paginas que tendremos para los botones.
+    const pageCount=dataPost.length/5;
     for(let x=primerElemento; x< ultimoElemento; x++){
         const positionUser=dataUser.findIndex( usuario=> usuario.id===dataPost[x].userId);
         container.innerHTML+=`<h3>${postArray[x-primerElemento].title}</h3>
                                 <a href="#" class="user" onclick="accedeUsers(${dataUser[positionUser].id})">${dataUser[positionUser].name}</a>
                                 <p>${dataPost[x-primerElemento].body}</p>`;
     }
-    pintarBotones(pagina, dataUser.id);
+    pintarBotones(pagina, dataUser.id, pageCount);
 
 }
 
 
-function pintarBotones(pagina, userId){
+function pintarBotones(pagina, userId, pageCount){
     //Contenedor principal
     const main=document.querySelector("main");
     
@@ -294,17 +301,24 @@ function pintarBotones(pagina, userId){
         nextButton.innerHTML = '<img src="./img/arrow-right.svg" alt="">';
         container.appendChild(nextButton);
     }else{
-        prevButton.setAttribute("data-id", Math.max(pagina - 1, 1));
-        prevButton.innerHTML = '<img src="./img/arrow-left.svg" alt="">';
-        container.appendChild(prevButton);
-        nextButton.setAttribute("data-id", pagina + 1);
-        nextButton.innerHTML = '<img src="./img/arrow-right.svg" alt="">';
-        container.appendChild(nextButton);
+        //Si la pagina es la ultima solamente creamos el boton de prev, y si es menor entonces creamos los dos botones.
+        if(pagina<pageCount){
+            prevButton.setAttribute("data-id", Math.max(pagina - 1, 1));
+            prevButton.innerHTML = '<img src="./img/arrow-left.svg" alt="">';
+            container.appendChild(prevButton);
+            nextButton.setAttribute("data-id", pagina + 1);
+            nextButton.innerHTML = '<img src="./img/arrow-right.svg" alt="">';
+            container.appendChild(nextButton);
+        }else if(pagina===pageCount){
+            prevButton.setAttribute("data-id", Math.max(pagina - 1, 1));
+            prevButton.innerHTML = '<img src="./img/arrow-left.svg" alt="">';
+            container.appendChild(prevButton);
+        }
     }
     // Añadimos eventos de clic a los botones
     nextButton.addEventListener("click", (e) => {
+        //Convertimos el data-set en numero
         const pageId = parseInt(e.currentTarget.dataset.id);
-
         if(!isNaN(pageId)){
             obtenerPosts(userId, pageId);
         }else{
@@ -312,6 +326,7 @@ function pintarBotones(pagina, userId){
         }
     });
     prevButton.addEventListener("click", (e) => {
+        //Convertimos el data-set en numero
         const pageId = parseInt(e.currentTarget.dataset.id);
         if(!isNaN(pageId)){
             obtenerPosts(userId, pageId);
