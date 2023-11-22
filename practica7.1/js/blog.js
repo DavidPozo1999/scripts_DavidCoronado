@@ -147,7 +147,7 @@ function pintaFicha(data){
 </div>`
 
 }
-async function obtenerPosts(id){
+async function obtenerPosts(id, pagina){
     if(id!=undefined){
         try{
             //enlace de la API
@@ -163,7 +163,7 @@ async function obtenerPosts(id){
             
             //Llamada para recoger los datos del usuario
             URL=`https://jsonplaceholder.typicode.com/users/${idUser}`;
-            console.log(URL)
+            
             const responseUser=await fetch(URL);
 
             if(!responseUser.ok){
@@ -172,8 +172,15 @@ async function obtenerPosts(id){
 
             //LLamada a la función para pintar los posts de un usuario en concreto
             const dataUser=await responseUser.json();
-            console.log(dataUser.name)
-            pintarPosts(dataPost, dataUser);
+
+            //Comprobamos el numero de la pagina, si no tiene le ponemos el 1
+            if(pagina!=undefined){
+                numberPage=pagina
+            }else{
+                numberPage=1
+            }
+            alert(typeof(numberPage));
+            pintarPosts(dataPost, dataUser, numberPage);
         }catch(error){
             console.error(error);
         }
@@ -200,11 +207,16 @@ async function obtenerPosts(id){
                         if(!usuarioEncontrado){
                             miArray.push(dataUser);
                         }
+                        if(pagina!=undefined){
+                            numberPage=pagina
+                        }else{
+                            numberPage=1
+                        }
                     }catch(error){
                         console.log(error);
                     }
             }
-            pintarTodosPosts(dataPost, miArray)
+            pintarTodosPosts(dataPost, miArray, numberPage)
         }catch(error){
             console.log(error);
         }
@@ -212,25 +224,28 @@ async function obtenerPosts(id){
 }
 
 
-function pintarPosts(dataPost, dataUser){
+function pintarPosts(dataPost, dataUser, pagina){
     //Contenedor principal
     const main=document.querySelector("main");
     main.innerHTML="";
-    
     //Creamos una etiqueta contenedor
     const div=document.createElement("div");
     div.classList.add("posts-container");
     main.appendChild(div);
-
     const container=document.querySelector("main .posts-container");
-    for(let x=0; x< 5; x++){
-        container.innerHTML+=`<h3>${dataPost[x].title}</h3>
+    //Hacemos las variables para sacar de 5 en 5 los posts.
+    let ultimoElemento=pagina*5;
+    let primerElemento=ultimoElemento-5;
+    const postArray=dataPost.slice(primerElemento, ultimoElemento);
+    for(let x=primerElemento; x< ultimoElemento; x++){
+        container.innerHTML+=`<h3>${postArray[x-primerElemento].title}</h3>
                                 <a href="#" class="user" onclick="accedeUsers(${dataUser.id})">${dataUser.name}</a>
-                                <p>${dataPost[x].body}</p>`;
+                                <p>${postArray[x-primerElemento].body}</p>`;
     }
+    pintarBotones(pagina, dataUser.id);
 }
 
-function pintarTodosPosts(dataPost, dataUser){
+function pintarTodosPosts(dataPost, dataUser, pagina){
     //Recogemos el contenedor pirncipal
     const main=document.querySelector("main");
     main.innerHTML="";
@@ -239,13 +254,70 @@ function pintarTodosPosts(dataPost, dataUser){
     const div=document.createElement("div");
     div.classList.add("posts-container");
     main.appendChild(div);
-
+    //Hacemos las variables para sacar de 5 en 5 los posts.
+    let ultimoElemento=pagina*5;
+    let primerElemento=ultimoElemento-5;
+    const postArray=dataPost.slice(primerElemento, ultimoElemento);
     const container=document.querySelector("main .posts-container");
 
-    for(let x=0; x< dataPost.length; x++){
+    for(let x=primerElemento; x< ultimoElemento; x++){
         const positionUser=dataUser.findIndex( usuario=> usuario.id===dataPost[x].userId);
-        container.innerHTML+=`<h3>${dataPost[x].title}</h3>
+        container.innerHTML+=`<h3>${postArray[x-primerElemento].title}</h3>
                                 <a href="#" class="user" onclick="accedeUsers(${dataUser[positionUser].id})">${dataUser[positionUser].name}</a>
-                                <p>${dataPost[x].body}</p>`;
+                                <p>${dataPost[x-primerElemento].body}</p>`;
     }
+    pintarBotones(pagina, dataUser.id);
+
+}
+
+
+function pintarBotones(pagina, userId){
+    //Contenedor principal
+    const main=document.querySelector("main");
+    
+    //Creamos una etiqueta contenedor
+    const div=document.createElement("div");
+    div.classList.add("buttons-container");
+    main.appendChild(div);
+    const container = document.querySelector("main .buttons-container");
+
+     // Creamos los elementos de los botones
+    const prevButton = document.createElement("button");
+    const nextButton = document.createElement("button");
+     // Establecemos las clases y atributos
+    prevButton.classList.add("prevButton");
+    nextButton.classList.add("nextButton");
+
+    //Si la pagina es igual a 1, entonces solo generamos el boton de next, en caso contrario creamos los dos botones
+    if (pagina === 1) {
+        nextButton.setAttribute("data-id", pagina + 1);
+        nextButton.innerHTML = '<img src="./img/arrow-right.svg" alt="">';
+        container.appendChild(nextButton);
+    }else{
+        prevButton.setAttribute("data-id", Math.max(pagina - 1, 1));
+        prevButton.innerHTML = '<img src="./img/arrow-left.svg" alt="">';
+        container.appendChild(prevButton);
+        nextButton.setAttribute("data-id", pagina + 1);
+        nextButton.innerHTML = '<img src="./img/arrow-right.svg" alt="">';
+        container.appendChild(nextButton);
+    }
+    // Añadimos eventos de clic a los botones
+    nextButton.addEventListener("click", (e) => {
+        const pageId = parseInt(e.currentTarget.dataset.id);
+
+        if(!isNaN(pageId)){
+            obtenerPosts(userId, pageId);
+        }else{
+            console.log("El dataset es NaN")
+        }
+    });
+    prevButton.addEventListener("click", (e) => {
+        const pageId = parseInt(e.currentTarget.dataset.id);
+        if(!isNaN(pageId)){
+            obtenerPosts(userId, pageId);
+        }else{
+            console.log("El dataset es NaN")
+        }
+    });
+
 }

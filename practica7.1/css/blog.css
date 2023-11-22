@@ -60,6 +60,7 @@ main{
 button{
     border: none;
     padding: .5rem 3rem;
+    background-color: var(--color-azul);
 }
 
 /*  Tarjeta de usuario*/
