@@ -1,5 +1,8 @@
 
-
+//Funcion llamada a api para recoger todos los datos de los usuarios
+//Le pasamos un parametro si al llamar a la funcion le pasamos el parametro
+//realizara una llamada sobre un usuario en concreto. Si no pasa el parametro
+//hara un fetch a todos los usuarios
 async function accedeUsers(id){
     
     if(id===undefined){
@@ -37,6 +40,11 @@ async function accedeUsers(id){
     }
 }
 
+//Funcion que pinta una tabla en el body con datos de los usuarios.
+//Le pasamos un parametro que será una lista con todos los usuarios
+//dentro de la funcion sacamos los datos que queramos.
+//Cada usuario tendra un enlace que llamará a otra función para pintar
+//una tarjeta con sus datos.
 function pintaUsuarios(userList){
     //Recogemos el contenedor donde vamos a crear la tabla
     const container=document.querySelector("main");
@@ -112,6 +120,8 @@ function pintaUsuarios(userList){
         })
 }
 
+//Está funcion pinta una ficha en el body con diferentes
+//datos del usuario.
 function pintaFicha(data){
     //Recogemos el contenedor
     const main=document.querySelector("main");
@@ -146,8 +156,12 @@ function pintaFicha(data){
         </div>
     </div>
 </div>`
-
 }
+
+//Funcion que sirve para obtener todos los posts ya sean de un usuario en concreto
+//o todos los posts de todos los usuarios, eso dependerá de si a la hora de hacer la llamada
+//a la función, le pasamos el id del usuario o no. También envio un parametro que guardo el número de la
+//pagina por decirlo asi para poder pasarlo despues a la función que me pinte los posts y así hacer la paginación.
 async function obtenerPosts(id, pagina){
     //Si se le pasa el parametro id entonces hacemos la llamada para los posts de ese usuario.
     //en caso contrario hacemos una llamada para todos los posts.
@@ -194,9 +208,12 @@ async function obtenerPosts(id, pagina){
                 throw new Error(`status: ${responsePost.status}`);
             }
             const dataPost=await responsePost.json();
+            
+            //Array donde voy a guardar los datos de los usuarios de cada post.
             var miArray= new Array();
             for(post of dataPost){
                     try{
+                        //Llamada a la API
                         const userId=post.userId;
                         let URL=`https://jsonplaceholder.typicode.com/users/${userId}`;
                         let responseUser=await fetch(URL);
@@ -205,6 +222,7 @@ async function obtenerPosts(id, pagina){
                         }
                         let dataUser=await responseUser.json();
                         
+                        //Realizo la función del find para saber si el objeto ya está en el array o no
                         let usuarioEncontrado=miArray.find(user=> user.id===dataUser.id);
                         if(!usuarioEncontrado){
                             miArray.push(dataUser);
@@ -225,7 +243,9 @@ async function obtenerPosts(id, pagina){
     }
 }
 
-
+//En está función pinto todos los posts de los usuarios.
+//Le paso la lista de los posts y los datos del usuario, más la página
+//para poder realizar la paginación. 
 function pintarPosts(dataPost, dataUser, pagina){
     //Contenedor principal
     const main=document.querySelector("main");
@@ -250,6 +270,7 @@ function pintarPosts(dataPost, dataUser, pagina){
     pintarBotones(pagina, dataUser.id, pageCount);
 }
 
+//Está funcion funcion parecida a la anterior. Le paso una lista de posts, otra lista de usuarios y la pagina
 function pintarTodosPosts(dataPost, dataUser, pagina){
     //Recogemos el contenedor pirncipal
     const main=document.querySelector("main");
@@ -265,8 +286,10 @@ function pintarTodosPosts(dataPost, dataUser, pagina){
     const postArray=dataPost.slice(primerElemento, ultimoElemento);
     const container=document.querySelector("main .posts-container");
     
-    //Tambien sacamos la cantidad de paginas que tendremos para los botones.
+    //Tambien sacamos la cantidad de paginas que tendremos, para los botones.
     const pageCount=dataPost.length/5;
+    //Hacemos un for para imprimir todos los posts. Buscamos el indice del usuario para poder
+    //sacar el usuario que ha creado ese post.
     for(let x=primerElemento; x< ultimoElemento; x++){
         const positionUser=dataUser.findIndex( usuario=> usuario.id===dataPost[x].userId);
         container.innerHTML+=`<h3>${postArray[x-primerElemento].title}</h3>
